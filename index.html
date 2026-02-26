@@ -63,12 +63,6 @@
   tr:nth-child(even) td { background: var(--ice); }
   tr:hover td { background: #dbeafe; }
 
-  .bar-row { display: flex; align-items: center; margin-bottom: 8px; }
-  .bar-label { width: 180px; font-size: 13px; font-weight: 500; flex-shrink: 0; }
-  .bar-track { flex: 1; background: var(--border); border-radius: 6px; height: 22px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; color: var(--white); font-weight: 600; min-width: 40px; }
-  .bar-value { margin-left: 10px; font-size: 13px; font-weight: 600; width: 80px; text-align: right; flex-shrink: 0; }
-
   /* === ACTIVITY SECTION === */
   .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
   .activity-card { background: var(--bg); border-radius: 10px; padding: 18px 20px; border: 1px solid var(--border); }
@@ -97,7 +91,6 @@
     .kpi-row { grid-template-columns: 1fr; }
     .activity-grid { grid-template-columns: 1fr; }
     .owner-split { grid-template-columns: 1fr; }
-    .bar-label { width: 120px; font-size: 12px; }
     .header-row { flex-direction: column; gap: 8px; }
   }
 </style>
@@ -148,20 +141,6 @@
     <div class="kpi-value">CA$670.3K</div>
     <div class="kpi-label">90&ndash;180 Days</div>
     <div class="kpi-sub">8 deals closing Jun&ndash;Aug</div>
-  </div>
-</div>
-
-<!-- STAGE PIPELINE SHAPE -->
-<div class="section">
-  <h2>Pipeline by Stage</h2>
-  <div style="margin:12px 0;">
-    <div class="bar-row"><div class="bar-label">Contract Sent (2)</div><div class="bar-track"><div class="bar-fill" style="width:0.6%;min-width:55px;background:var(--green);">$7K</div></div><div class="bar-value">$7,020</div></div>
-    <div class="bar-row"><div class="bar-label">Presentation (2)</div><div class="bar-track"><div class="bar-fill" style="width:12.2%;background:var(--blue);">$152K</div></div><div class="bar-value">$152,000</div></div>
-    <div class="bar-row"><div class="bar-label">Qualified To Buy (2)</div><div class="bar-track"><div class="bar-fill" style="width:1.1%;min-width:55px;background:var(--blue-dark);">$14K</div></div><div class="bar-value">$14,000</div></div>
-    <div class="bar-row"><div class="bar-label">Appt Scheduled (9)</div><div class="bar-track"><div class="bar-fill" style="width:69%;background:var(--amber);">$858K</div></div><div class="bar-value">$858,000</div></div>
-    <div class="bar-row"><div class="bar-label">Qualification (5)</div><div class="bar-track"><div class="bar-fill" style="width:2.5%;min-width:55px;background:#7c3aed;">$31K</div></div><div class="bar-value">$31,344</div></div>
-    <div class="bar-row"><div class="bar-label">Lead Capture (5)</div><div class="bar-track"><div class="bar-fill" style="width:14.5%;background:var(--red);">$180K</div></div><div class="bar-value">$180,000</div></div>
-    <div class="bar-row"><div class="bar-label">Discovery Call (1)</div><div class="bar-track"><div class="bar-fill" style="width:0.1%;min-width:50px;background:var(--body);">$1.2K</div></div><div class="bar-value">$1,200</div></div>
   </div>
 </div>
 
