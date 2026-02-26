@@ -276,7 +276,7 @@ async function sha256(message) {
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-const PASSCODE_HASH = '7e1a4cb69a078de46803047d2e24cba2acdd3db1e13e498e32a57c0f29555213';
+const PASSCODE_HASH = '61f683978eec16f3f6d4378967171189c5c43bb3ef566b59a6d7aaa94f2bedc8';
 
 async function checkPasscode() {
   const input = document.getElementById('passcode-input').value;
