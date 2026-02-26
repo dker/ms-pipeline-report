@@ -56,7 +56,6 @@
 
   .section { background: var(--white); border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; border: 1px solid var(--border); }
   .section h2 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 14px; border-bottom: 2px solid var(--blue); padding-bottom: 8px; }
-  .section h3 { font-size: 14px; font-weight: 700; color: var(--heading); margin: 14px 0 8px; }
 
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th { background: var(--navy); color: var(--white); text-align: left; padding: 9px 12px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -64,17 +63,30 @@
   tr:nth-child(even) td { background: var(--ice); }
   tr:hover td { background: #dbeafe; }
 
-  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
-  .b-green { background: #d4edda; color: #155724; }
-  .b-blue { background: var(--ice); color: var(--blue-dark); }
-  .b-amber { background: #fff3cd; color: #7a5900; }
-  .b-navy { background: var(--navy); color: var(--white); }
-
   .bar-row { display: flex; align-items: center; margin-bottom: 8px; }
   .bar-label { width: 180px; font-size: 13px; font-weight: 500; flex-shrink: 0; }
   .bar-track { flex: 1; background: var(--border); border-radius: 6px; height: 22px; overflow: hidden; }
   .bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; color: var(--white); font-weight: 600; min-width: 40px; }
   .bar-value { margin-left: 10px; font-size: 13px; font-weight: 600; width: 80px; text-align: right; flex-shrink: 0; }
+
+  /* === ACTIVITY SECTION === */
+  .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
+  .activity-card { background: var(--bg); border-radius: 10px; padding: 18px 20px; border: 1px solid var(--border); }
+  .activity-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .activity-metric { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .activity-metric:last-child { border-bottom: none; }
+  .activity-metric .label { font-size: 12px; color: var(--body); }
+  .activity-metric .value { font-size: 18px; font-weight: 700; color: var(--heading); }
+  .activity-metric .change { font-size: 11px; font-weight: 600; margin-left: 6px; }
+  .change-up { color: var(--green); }
+  .change-down { color: var(--red); }
+  .activity-metric .val-row { display: flex; align-items: baseline; gap: 4px; }
+
+  .owner-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .owner-card { background: var(--bg); border-radius: 10px; padding: 18px 20px; border: 1px solid var(--border); text-align: center; }
+  .owner-card .owner-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .owner-card .owner-deals { font-size: 12px; color: var(--body); }
+  .owner-card .owner-value { font-size: 24px; font-weight: 700; color: var(--blue); margin-top: 6px; }
 
   .note-box { background: var(--ice); border-left: 4px solid var(--blue); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-top: 16px; font-size: 13px; color: var(--body); }
   .note-box strong { color: var(--navy); }
@@ -83,6 +95,8 @@
 
   @media (max-width: 768px) {
     .kpi-row { grid-template-columns: 1fr; }
+    .activity-grid { grid-template-columns: 1fr; }
+    .owner-split { grid-template-columns: 1fr; }
     .bar-label { width: 120px; font-size: 12px; }
     .header-row { flex-direction: column; gap: 8px; }
   }
@@ -109,7 +123,7 @@
 <div class="header">
   <div class="header-row">
     <div>
-      <h1>MS Pipeline — Deal Data</h1>
+      <h1>MS Pipeline — Summary</h1>
       <div class="subtitle">February 26, 2026 &bull; 26 Active Deals &bull; Source: HubSpot CRM</div>
     </div>
     <div class="brand">mind<span>stride</span></div>
@@ -122,24 +136,24 @@
 <div class="kpi-row">
   <div class="kpi">
     <div class="kpi-value">CA$1.25M</div>
-    <div class="kpi-label">Total Deal Amount</div>
-    <div class="kpi-sub">Avg CA$48.24K</div>
+    <div class="kpi-label">Total Pipeline</div>
+    <div class="kpi-sub">26 deals &bull; Avg CA$48.2K</div>
   </div>
   <div class="kpi">
-    <div class="kpi-value">CA$413.56K</div>
+    <div class="kpi-value">CA$413.6K</div>
     <div class="kpi-label">Next 90 Days</div>
-    <div class="kpi-sub">Avg CA$27.57K</div>
+    <div class="kpi-sub">15 deals closing Mar&ndash;May</div>
   </div>
   <div class="kpi">
-    <div class="kpi-value">CA$670.31K</div>
-    <div class="kpi-label">Next 90–180 Days</div>
-    <div class="kpi-sub">Avg CA$83.79K</div>
+    <div class="kpi-value">CA$670.3K</div>
+    <div class="kpi-label">90&ndash;180 Days</div>
+    <div class="kpi-sub">8 deals closing Jun&ndash;Aug</div>
   </div>
 </div>
 
 <!-- STAGE PIPELINE SHAPE -->
 <div class="section">
-  <h2>Pipeline Shape by Stage</h2>
+  <h2>Pipeline by Stage</h2>
   <div style="margin:12px 0;">
     <div class="bar-row"><div class="bar-label">Contract Sent (2)</div><div class="bar-track"><div class="bar-fill" style="width:0.6%;min-width:55px;background:var(--green);">$7K</div></div><div class="bar-value">$7,020</div></div>
     <div class="bar-row"><div class="bar-label">Presentation (2)</div><div class="bar-track"><div class="bar-fill" style="width:12.2%;background:var(--blue);">$152K</div></div><div class="bar-value">$152,000</div></div>
@@ -151,124 +165,112 @@
   </div>
 </div>
 
-<!-- ALL DEALS BY STAGE -->
+<!-- OWNER SPLIT -->
 <div class="section">
-  <h2>All Deals by Stage</h2>
-
-  <h3><span class="badge b-green">Contract Sent</span> &mdash; 2 deals ($7,020)</h3>
-  <table>
-    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Next Step</th></tr>
-    <tr><td>CrossPoint Financial</td><td>Patrick Horne</td><td>$1,980</td><td>Mar 31, 2026</td><td>2/26 - Contract follow-up</td></tr>
-    <tr><td>Invest Ottawa</td><td>Patrick Horne</td><td>$5,040</td><td>Mar 2, 2026</td><td>2/26 - Waiting</td></tr>
-  </table>
-
-  <h3><span class="badge b-blue">Presentation Scheduled</span> &mdash; 2 deals ($152,000)</h3>
-  <table>
-    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Next Step</th></tr>
-    <tr><td>Algonquin College</td><td>Patrick Horne</td><td>$150,000</td><td>Aug 31, 2026</td><td>--</td></tr>
-    <tr><td>Ian Keith broker</td><td>Barb Streiftau</td><td>$2,000</td><td>Apr 24, 2026</td><td>--</td></tr>
-  </table>
-
-  <h3><span class="badge b-blue">Qualified To Buy</span> &mdash; 2 deals ($14,000)</h3>
-  <table>
-    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Next Step</th></tr>
-    <tr><td>Gavin Mosley - Group Benefitz</td><td>Barb Streiftau</td><td>$10,000</td><td>Apr 10, 2026</td><td>--</td></tr>
-    <tr><td>David Burns and Associates</td><td>Barb Streiftau</td><td>$4,000</td><td>Apr 30, 2026</td><td>--</td></tr>
-  </table>
-
-  <h3><span class="badge b-amber">Appointment Scheduled</span> &mdash; 9 deals ($858,000)</h3>
-  <table>
-    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Next Step</th></tr>
-    <tr><td>Magna International</td><td>Patrick Horne</td><td>$100,000</td><td>Jun 30, 2026</td><td>--</td></tr>
-    <tr><td>1Valet</td><td>Patrick Horne</td><td>$50,000</td><td>May 31, 2026</td><td>--</td></tr>
-    <tr><td>CLAC</td><td>Barb Streiftau</td><td>$200,000</td><td>Jul 17, 2026</td><td>--</td></tr>
-    <tr><td>Canada Air 3000</td><td>Patrick Horne</td><td>$50,000</td><td>Jun 30, 2026</td><td>--</td></tr>
-    <tr><td>March Networks</td><td>Patrick Horne</td><td>$50,000</td><td>Jun 30, 2026</td><td>--</td></tr>
-    <tr><td>BGC Ottawa</td><td>Patrick Horne</td><td>$4,000</td><td>Apr 30, 2026</td><td>2/26 - Laura</td></tr>
-    <tr><td>Carleton University</td><td>Patrick Horne</td><td>$200,000</td><td>Jun 30, 2026</td><td>2/26 - Working</td></tr>
-    <tr><td>Firefighters Association</td><td>Patrick Horne</td><td>$200,000</td><td>Apr 30, 2026</td><td>2/26 - Working</td></tr>
-    <tr><td>Swish</td><td>Barb Streiftau</td><td>$4,000</td><td>Apr 24, 2026</td><td>--</td></tr>
-  </table>
-
-  <h3><span class="badge b-blue">Qualification</span> &mdash; 5 deals ($31,344)</h3>
-  <table>
-    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Pipeline</th><th>Next Step</th></tr>
-    <tr><td>Mary Ann Lalonde Insurance</td><td>Barb Streiftau</td><td>$4,000</td><td>Apr 30, 2026</td><td>Salesforce</td><td>--</td></tr>
-    <tr><td>Business Sherpa Group</td><td>Barb Streiftau</td><td>$5,000</td><td>Apr 30, 2026</td><td>Salesforce</td><td>--</td></tr>
-    <tr><td>PureLogic IT Solutions</td><td>Barb Streiftau</td><td>$5,000</td><td>Mar 31, 2026</td><td>Salesforce</td><td>--</td></tr>
-    <tr><td>Brazeau Seller</td><td>Barb Streiftau</td><td>$7,344</td><td>Mar 31, 2026</td><td>Salesforce</td><td>2/26 - Connection</td></tr>
-    <tr><td>Fullscript</td><td>Patrick Horne</td><td>$10,000</td><td>Oct 31, 2026</td><td>Salesforce</td><td>2/26 - Pilot</td></tr>
-  </table>
-
-  <h3><span class="badge b-navy">Lead Capture</span> &mdash; 5 deals ($180,000)</h3>
-  <table>
-    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Pipeline</th><th>Next Step</th></tr>
-    <tr><td>GSAED Expand 2026</td><td>Patrick Horne</td><td>$150,000</td><td>Apr 30, 2026</td><td>Salesforce</td><td>2/26 - Working</td></tr>
-    <tr><td>Bennett Insurance</td><td>Barb Streiftau</td><td>$10,000</td><td>Mar 31, 2026</td><td>Salesforce</td><td>--</td></tr>
-    <tr><td>Sterling Brokers</td><td>Patrick Horne</td><td>$10,000</td><td>Jun 30, 2026</td><td>Salesforce</td><td>2/26 - Waiting</td></tr>
-    <tr><td>Calian - V2</td><td>Patrick Horne</td><td>$5,000</td><td>Aug 31, 2026</td><td>Salesforce</td><td>2/26 - TBD</td></tr>
-    <tr><td>Kinaxis</td><td>Patrick Horne</td><td>$5,000</td><td>Jul 31, 2026</td><td>Salesforce</td><td>2/26 - Send</td></tr>
-  </table>
-
-  <h3><span class="badge b-navy">Discovery Call Scheduled</span> &mdash; 1 deal ($1,200)</h3>
-  <table>
-    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Pipeline</th><th>Next Step</th></tr>
-    <tr><td>Special Olympics Ontario</td><td>Patrick Horne</td><td>$1,200</td><td>Apr 30, 2026</td><td>BZ - B2B</td><td>2/26 - Follow up</td></tr>
-  </table>
+  <h2>Owner Split</h2>
+  <div class="owner-split">
+    <div class="owner-card">
+      <div class="owner-name">Patrick Horne</div>
+      <div class="owner-deals">16 deals</div>
+      <div class="owner-value">CA$992.2K</div>
+    </div>
+    <div class="owner-card">
+      <div class="owner-name">Barb Streiftau</div>
+      <div class="owner-deals">10 deals</div>
+      <div class="owner-value">CA$251.3K</div>
+    </div>
+  </div>
 </div>
 
-<!-- SUMMARIES -->
+<!-- B2B ACTIVITY (BARB & PAT) -->
 <div class="section">
-  <h2>Summaries</h2>
+  <h2>B2B Activity (Barb &amp; Pat)</h2>
+  <div class="activity-grid">
 
-  <h3>Stage Summary</h3>
+    <!-- Year to Date -->
+    <div class="activity-card">
+      <h4>Year to Date</h4>
+      <div class="activity-metric">
+        <span class="label">Emails Sent</span>
+        <div class="val-row"><span class="value">3,046</span><span class="change change-up">&#9650; 13,745%</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Calls</span>
+        <div class="val-row"><span class="value">292</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Notes</span>
+        <div class="val-row"><span class="value">261</span><span class="change change-up">&#9650; 8.8%</span></div>
+      </div>
+    </div>
+
+    <!-- Month to Date -->
+    <div class="activity-card">
+      <h4>Month to Date</h4>
+      <div class="activity-metric">
+        <span class="label">Emails Sent</span>
+        <div class="val-row"><span class="value">1,875</span><span class="change change-up">&#9650; 60.1%</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Calls</span>
+        <div class="val-row"><span class="value">155</span><span class="change change-up">&#9650; 13.1%</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">LinkedIn Msgs</span>
+        <div class="val-row"><span class="value">86</span><span class="change change-down">&#9660; 6.5%</span></div>
+      </div>
+    </div>
+
+    <!-- Week to Date -->
+    <div class="activity-card">
+      <h4>Week to Date</h4>
+      <div class="activity-metric">
+        <span class="label">Emails Sent</span>
+        <div class="val-row"><span class="value">249</span><span class="change change-down">&#9660; 75.4%</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Calls</span>
+        <div class="val-row"><span class="value">47</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Notes</span>
+        <div class="val-row"><span class="value">19</span><span class="change change-up">&#9650; 137.5%</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CLOSE DATE DISTRIBUTION -->
+<div class="section">
+  <h2>Close Date Distribution</h2>
   <table>
-    <tr><th>Stage</th><th># Deals</th><th>Value</th><th>% of Pipeline</th></tr>
-    <tr><td>Contract Sent</td><td>2</td><td>$7,020</td><td>0.6%</td></tr>
-    <tr><td>Presentation Scheduled</td><td>2</td><td>$152,000</td><td>12.2%</td></tr>
-    <tr><td>Qualified To Buy</td><td>2</td><td>$14,000</td><td>1.1%</td></tr>
-    <tr><td>Appointment Scheduled</td><td>9</td><td>$858,000</td><td>69.0%</td></tr>
-    <tr><td>Qualification</td><td>5</td><td>$31,344</td><td>2.5%</td></tr>
-    <tr><td>Lead Capture</td><td>5</td><td>$180,000</td><td>14.5%</td></tr>
-    <tr><td>Discovery Call Scheduled</td><td>1</td><td>$1,200</td><td>0.1%</td></tr>
+    <tr><th>Period</th><th># Deals</th><th>Value</th><th>% of Pipeline</th></tr>
+    <tr><td>Mar 2026</td><td>5</td><td>$32,364</td><td>2.6%</td></tr>
+    <tr><td>Apr 2026</td><td>9</td><td>$389,544</td><td>31.3%</td></tr>
+    <tr><td>May 2026</td><td>1</td><td>$50,000</td><td>4.0%</td></tr>
+    <tr><td>Jun 2026</td><td>5</td><td>$410,000</td><td>33.0%</td></tr>
+    <tr><td>Jul 2026</td><td>2</td><td>$205,000</td><td>16.5%</td></tr>
+    <tr><td>Aug 2026</td><td>2</td><td>$155,000</td><td>12.5%</td></tr>
+    <tr><td>Oct 2026</td><td>1</td><td>$10,000</td><td>0.8%</td></tr>
     <tr style="font-weight:700;"><td>Total</td><td>26</td><td>$1,243,564</td><td>100%</td></tr>
-  </table>
-
-  <h3>Owner Summary</h3>
-  <table>
-    <tr><th>Owner</th><th># Deals</th><th>Value</th></tr>
-    <tr><td>Patrick Horne</td><td>16</td><td>$992,220</td></tr>
-    <tr><td>Barb Streiftau</td><td>10</td><td>$251,344</td></tr>
-  </table>
-
-  <h3>Close Date Distribution</h3>
-  <table>
-    <tr><th>Period</th><th># Deals</th><th>Value</th></tr>
-    <tr><td>Mar 2026</td><td>5</td><td>$32,364</td></tr>
-    <tr><td>Apr 2026</td><td>9</td><td>$389,544</td></tr>
-    <tr><td>May 2026</td><td>1</td><td>$50,000</td></tr>
-    <tr><td>Jun 2026</td><td>5</td><td>$410,000</td></tr>
-    <tr><td>Jul 2026</td><td>2</td><td>$205,000</td></tr>
-    <tr><td>Aug 2026</td><td>2</td><td>$155,000</td></tr>
-    <tr><td>Oct 2026</td><td>1</td><td>$10,000</td></tr>
   </table>
 </div>
 
 <!-- NOTES -->
 <div class="note-box">
-  <strong>Notes:</strong> This is a cross-pipeline custom view combining active deals from Sales Pipeline, Salesforce - Default Pipeline, and BZ - B2B Pipeline. Close dates were updated on 2/26/2026 during a pipeline grooming session (13 of 26 deals pushed forward).
+  <strong>Notes:</strong> Cross-pipeline custom view combining active deals from Sales Pipeline, Salesforce Default Pipeline, and BZ - B2B Pipeline. Close dates updated 2/26/2026 during pipeline grooming (13 of 26 deals pushed forward).
 </div>
 
 </div>
 
 <div class="footer">
-  MindStride &bull; MS Pipeline Report &bull; Generated Feb 26, 2026 &bull; Confidential
+  MindStride &bull; MS Pipeline Summary &bull; Generated Feb 26, 2026 &bull; Confidential
 </div>
 
 </div><!-- end #report -->
 
 <script>
-// Simple client-side passcode protection
 async function sha256(message) {
   const msgBuffer = new TextEncoder().encode(message);
   const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -295,12 +297,10 @@ async function checkPasscode() {
   }
 }
 
-// Allow Enter key
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('passcode-input').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') checkPasscode();
   });
-  // Check if already authenticated in this session
   if (sessionStorage.getItem('ms-pipeline-auth') === 'true') {
     document.getElementById('lock-screen').classList.add('hidden');
     document.getElementById('report').classList.add('visible');
