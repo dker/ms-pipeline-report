@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindStride — MS Pipeline Report</title>
+<style>
+  :root {
+    --blue: #1D7BFA; --blue-dark: #1557C0; --navy: #0D1F3C; --heading: #111827;
+    --body: #6B7280; --border: #E5E7EB; --bg: #F8FAFC; --ice: #EBF3FF;
+    --sky: #93BFFD; --green: #1F9E60; --amber: #D68910; --red: #B03A2E;
+    --white: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Calibri, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--heading); line-height: 1.55; }
+
+  /* === PASSCODE SCREEN === */
+  #lock-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+  }
+  #lock-screen.hidden { display: none; }
+  .lock-brand { font-size: 32px; font-weight: 700; color: var(--white); margin-bottom: 8px; letter-spacing: -0.5px; }
+  .lock-brand span { color: var(--sky); }
+  .lock-subtitle { color: var(--sky); font-size: 14px; margin-bottom: 32px; opacity: 0.8; }
+  .lock-box { background: var(--white); border-radius: 16px; padding: 36px 40px; width: 380px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .lock-box h2 { font-size: 20px; color: var(--navy); margin-bottom: 6px; }
+  .lock-box p { font-size: 13px; color: var(--body); margin-bottom: 20px; }
+  .lock-input { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 8px; font-size: 16px; text-align: center; letter-spacing: 4px; outline: none; transition: border-color 0.2s; }
+  .lock-input:focus { border-color: var(--blue); }
+  .lock-input.error { border-color: var(--red); animation: shake 0.4s ease; }
+  .lock-btn { width: 100%; margin-top: 16px; padding: 12px; background: var(--blue); color: var(--white); border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .lock-btn:hover { background: var(--blue-dark); }
+  .lock-error { color: var(--red); font-size: 13px; margin-top: 10px; min-height: 18px; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+
+  /* === REPORT === */
+  #report { display: none; }
+  #report.visible { display: block; }
+
+  .header { background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%); color: var(--white); padding: 28px 40px; }
+  .header-row { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .subtitle { color: var(--sky); font-size: 13px; margin-top: 4px; }
+  .header .brand { font-size: 22px; font-weight: 700; }
+  .header .brand span { color: var(--sky); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi { background: var(--white); border-radius: 10px; padding: 20px; border: 1px solid var(--border); text-align: center; }
+  .kpi .kpi-value { font-size: 28px; font-weight: 700; color: var(--blue); }
+  .kpi .kpi-label { font-size: 12px; color: var(--body); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .kpi-sub { font-size: 12px; color: var(--body); }
+
+  .section { background: var(--white); border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; border: 1px solid var(--border); }
+  .section h2 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 14px; border-bottom: 2px solid var(--blue); padding-bottom: 8px; }
+  .section h3 { font-size: 14px; font-weight: 700; color: var(--heading); margin: 14px 0 8px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--navy); color: var(--white); text-align: left; padding: 9px 12px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) td { background: var(--ice); }
+  tr:hover td { background: #dbeafe; }
+
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .b-green { background: #d4edda; color: #155724; }
+  .b-blue { background: var(--ice); color: var(--blue-dark); }
+  .b-amber { background: #fff3cd; color: #7a5900; }
+  .b-navy { background: var(--navy); color: var(--white); }
+
+  .bar-row { display: flex; align-items: center; margin-bottom: 8px; }
+  .bar-label { width: 180px; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+  .bar-track { flex: 1; background: var(--border); border-radius: 6px; height: 22px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; color: var(--white); font-weight: 600; min-width: 40px; }
+  .bar-value { margin-left: 10px; font-size: 13px; font-weight: 600; width: 80px; text-align: right; flex-shrink: 0; }
+
+  .note-box { background: var(--ice); border-left: 4px solid var(--blue); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-top: 16px; font-size: 13px; color: var(--body); }
+  .note-box strong { color: var(--navy); }
+
+  .footer { text-align: center; padding: 24px; color: var(--body); font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .kpi-row { grid-template-columns: 1fr; }
+    .bar-label { width: 120px; font-size: 12px; }
+    .header-row { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================== PASSCODE SCREEN ======================== -->
+<div id="lock-screen">
+  <div class="lock-brand">mind<span>stride</span></div>
+  <div class="lock-subtitle">Sales Pipeline Report</div>
+  <div class="lock-box">
+    <h2>Enter Passcode</h2>
+    <p>This report is protected. Enter the passcode to continue.</p>
+    <input type="password" id="passcode-input" class="lock-input" placeholder="••••••" maxlength="20" autofocus>
+    <button class="lock-btn" onclick="checkPasscode()">Unlock Report</button>
+    <div class="lock-error" id="lock-error"></div>
+  </div>
+</div>
+
+<!-- ======================== REPORT CONTENT ======================== -->
+<div id="report">
+
+<div class="header">
+  <div class="header-row">
+    <div>
+      <h1>MS Pipeline — Deal Data</h1>
+      <div class="subtitle">February 26, 2026 &bull; 26 Active Deals &bull; Source: HubSpot CRM</div>
+    </div>
+    <div class="brand">mind<span>stride</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- KPIs -->
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-value">CA$1.25M</div>
+    <div class="kpi-label">Total Deal Amount</div>
+    <div class="kpi-sub">Avg CA$48.24K</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-value">CA$413.56K</div>
+    <div class="kpi-label">Next 90 Days</div>
+    <div class="kpi-sub">Avg CA$27.57K</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-value">CA$670.31K</div>
+    <div class="kpi-label">Next 90–180 Days</div>
+    <div class="kpi-sub">Avg CA$83.79K</div>
+  </div>
+</div>
+
+<!-- STAGE PIPELINE SHAPE -->
+<div class="section">
+  <h2>Pipeline Shape by Stage</h2>
+  <div style="margin:12px 0;">
+    <div class="bar-row"><div class="bar-label">Contract Sent (2)</div><div class="bar-track"><div class="bar-fill" style="width:0.6%;min-width:55px;background:var(--green);">$7K</div></div><div class="bar-value">$7,020</div></div>
+    <div class="bar-row"><div class="bar-label">Presentation (2)</div><div class="bar-track"><div class="bar-fill" style="width:12.2%;background:var(--blue);">$152K</div></div><div class="bar-value">$152,000</div></div>
+    <div class="bar-row"><div class="bar-label">Qualified To Buy (2)</div><div class="bar-track"><div class="bar-fill" style="width:1.1%;min-width:55px;background:var(--blue-dark);">$14K</div></div><div class="bar-value">$14,000</div></div>
+    <div class="bar-row"><div class="bar-label">Appt Scheduled (9)</div><div class="bar-track"><div class="bar-fill" style="width:69%;background:var(--amber);">$858K</div></div><div class="bar-value">$858,000</div></div>
+    <div class="bar-row"><div class="bar-label">Qualification (5)</div><div class="bar-track"><div class="bar-fill" style="width:2.5%;min-width:55px;background:#7c3aed;">$31K</div></div><div class="bar-value">$31,344</div></div>
+    <div class="bar-row"><div class="bar-label">Lead Capture (5)</div><div class="bar-track"><div class="bar-fill" style="width:14.5%;background:var(--red);">$180K</div></div><div class="bar-value">$180,000</div></div>
+    <div class="bar-row"><div class="bar-label">Discovery Call (1)</div><div class="bar-track"><div class="bar-fill" style="width:0.1%;min-width:50px;background:var(--body);">$1.2K</div></div><div class="bar-value">$1,200</div></div>
+  </div>
+</div>
+
+<!-- ALL DEALS BY STAGE -->
+<div class="section">
+  <h2>All Deals by Stage</h2>
+
+  <h3><span class="badge b-green">Contract Sent</span> &mdash; 2 deals ($7,020)</h3>
+  <table>
+    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Next Step</th></tr>
+    <tr><td>CrossPoint Financial</td><td>Patrick Horne</td><td>$1,980</td><td>Mar 31, 2026</td><td>2/26 - Contract follow-up</td></tr>
+    <tr><td>Invest Ottawa</td><td>Patrick Horne</td><td>$5,040</td><td>Mar 2, 2026</td><td>2/26 - Waiting</td></tr>
+  </table>
+
+  <h3><span class="badge b-blue">Presentation Scheduled</span> &mdash; 2 deals ($152,000)</h3>
+  <table>
+    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Next Step</th></tr>
+    <tr><td>Algonquin College</td><td>Patrick Horne</td><td>$150,000</td><td>Aug 31, 2026</td><td>--</td></tr>
+    <tr><td>Ian Keith broker</td><td>Barb Streiftau</td><td>$2,000</td><td>Apr 24, 2026</td><td>--</td></tr>
+  </table>
+
+  <h3><span class="badge b-blue">Qualified To Buy</span> &mdash; 2 deals ($14,000)</h3>
+  <table>
+    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Next Step</th></tr>
+    <tr><td>Gavin Mosley - Group Benefitz</td><td>Barb Streiftau</td><td>$10,000</td><td>Apr 10, 2026</td><td>--</td></tr>
+    <tr><td>David Burns and Associates</td><td>Barb Streiftau</td><td>$4,000</td><td>Apr 30, 2026</td><td>--</td></tr>
+  </table>
+
+  <h3><span class="badge b-amber">Appointment Scheduled</span> &mdash; 9 deals ($858,000)</h3>
+  <table>
+    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Next Step</th></tr>
+    <tr><td>Magna International</td><td>Patrick Horne</td><td>$100,000</td><td>Jun 30, 2026</td><td>--</td></tr>
+    <tr><td>1Valet</td><td>Patrick Horne</td><td>$50,000</td><td>May 31, 2026</td><td>--</td></tr>
+    <tr><td>CLAC</td><td>Barb Streiftau</td><td>$200,000</td><td>Jul 17, 2026</td><td>--</td></tr>
+    <tr><td>Canada Air 3000</td><td>Patrick Horne</td><td>$50,000</td><td>Jun 30, 2026</td><td>--</td></tr>
+    <tr><td>March Networks</td><td>Patrick Horne</td><td>$50,000</td><td>Jun 30, 2026</td><td>--</td></tr>
+    <tr><td>BGC Ottawa</td><td>Patrick Horne</td><td>$4,000</td><td>Apr 30, 2026</td><td>2/26 - Laura</td></tr>
+    <tr><td>Carleton University</td><td>Patrick Horne</td><td>$200,000</td><td>Jun 30, 2026</td><td>2/26 - Working</td></tr>
+    <tr><td>Firefighters Association</td><td>Patrick Horne</td><td>$200,000</td><td>Apr 30, 2026</td><td>2/26 - Working</td></tr>
+    <tr><td>Swish</td><td>Barb Streiftau</td><td>$4,000</td><td>Apr 24, 2026</td><td>--</td></tr>
+  </table>
+
+  <h3><span class="badge b-blue">Qualification</span> &mdash; 5 deals ($31,344)</h3>
+  <table>
+    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Pipeline</th><th>Next Step</th></tr>
+    <tr><td>Mary Ann Lalonde Insurance</td><td>Barb Streiftau</td><td>$4,000</td><td>Apr 30, 2026</td><td>Salesforce</td><td>--</td></tr>
+    <tr><td>Business Sherpa Group</td><td>Barb Streiftau</td><td>$5,000</td><td>Apr 30, 2026</td><td>Salesforce</td><td>--</td></tr>
+    <tr><td>PureLogic IT Solutions</td><td>Barb Streiftau</td><td>$5,000</td><td>Mar 31, 2026</td><td>Salesforce</td><td>--</td></tr>
+    <tr><td>Brazeau Seller</td><td>Barb Streiftau</td><td>$7,344</td><td>Mar 31, 2026</td><td>Salesforce</td><td>2/26 - Connection</td></tr>
+    <tr><td>Fullscript</td><td>Patrick Horne</td><td>$10,000</td><td>Oct 31, 2026</td><td>Salesforce</td><td>2/26 - Pilot</td></tr>
+  </table>
+
+  <h3><span class="badge b-navy">Lead Capture</span> &mdash; 5 deals ($180,000)</h3>
+  <table>
+    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Pipeline</th><th>Next Step</th></tr>
+    <tr><td>GSAED Expand 2026</td><td>Patrick Horne</td><td>$150,000</td><td>Apr 30, 2026</td><td>Salesforce</td><td>2/26 - Working</td></tr>
+    <tr><td>Bennett Insurance</td><td>Barb Streiftau</td><td>$10,000</td><td>Mar 31, 2026</td><td>Salesforce</td><td>--</td></tr>
+    <tr><td>Sterling Brokers</td><td>Patrick Horne</td><td>$10,000</td><td>Jun 30, 2026</td><td>Salesforce</td><td>2/26 - Waiting</td></tr>
+    <tr><td>Calian - V2</td><td>Patrick Horne</td><td>$5,000</td><td>Aug 31, 2026</td><td>Salesforce</td><td>2/26 - TBD</td></tr>
+    <tr><td>Kinaxis</td><td>Patrick Horne</td><td>$5,000</td><td>Jul 31, 2026</td><td>Salesforce</td><td>2/26 - Send</td></tr>
+  </table>
+
+  <h3><span class="badge b-navy">Discovery Call Scheduled</span> &mdash; 1 deal ($1,200)</h3>
+  <table>
+    <tr><th>Deal</th><th>Owner</th><th>Amount</th><th>Close Date</th><th>Pipeline</th><th>Next Step</th></tr>
+    <tr><td>Special Olympics Ontario</td><td>Patrick Horne</td><td>$1,200</td><td>Apr 30, 2026</td><td>BZ - B2B</td><td>2/26 - Follow up</td></tr>
+  </table>
+</div>
+
+<!-- SUMMARIES -->
+<div class="section">
+  <h2>Summaries</h2>
+
+  <h3>Stage Summary</h3>
+  <table>
+    <tr><th>Stage</th><th># Deals</th><th>Value</th><th>% of Pipeline</th></tr>
+    <tr><td>Contract Sent</td><td>2</td><td>$7,020</td><td>0.6%</td></tr>
+    <tr><td>Presentation Scheduled</td><td>2</td><td>$152,000</td><td>12.2%</td></tr>
+    <tr><td>Qualified To Buy</td><td>2</td><td>$14,000</td><td>1.1%</td></tr>
+    <tr><td>Appointment Scheduled</td><td>9</td><td>$858,000</td><td>69.0%</td></tr>
+    <tr><td>Qualification</td><td>5</td><td>$31,344</td><td>2.5%</td></tr>
+    <tr><td>Lead Capture</td><td>5</td><td>$180,000</td><td>14.5%</td></tr>
+    <tr><td>Discovery Call Scheduled</td><td>1</td><td>$1,200</td><td>0.1%</td></tr>
+    <tr style="font-weight:700;"><td>Total</td><td>26</td><td>$1,243,564</td><td>100%</td></tr>
+  </table>
+
+  <h3>Owner Summary</h3>
+  <table>
+    <tr><th>Owner</th><th># Deals</th><th>Value</th></tr>
+    <tr><td>Patrick Horne</td><td>16</td><td>$992,220</td></tr>
+    <tr><td>Barb Streiftau</td><td>10</td><td>$251,344</td></tr>
+  </table>
+
+  <h3>Close Date Distribution</h3>
+  <table>
+    <tr><th>Period</th><th># Deals</th><th>Value</th></tr>
+    <tr><td>Mar 2026</td><td>5</td><td>$32,364</td></tr>
+    <tr><td>Apr 2026</td><td>9</td><td>$389,544</td></tr>
+    <tr><td>May 2026</td><td>1</td><td>$50,000</td></tr>
+    <tr><td>Jun 2026</td><td>5</td><td>$410,000</td></tr>
+    <tr><td>Jul 2026</td><td>2</td><td>$205,000</td></tr>
+    <tr><td>Aug 2026</td><td>2</td><td>$155,000</td></tr>
+    <tr><td>Oct 2026</td><td>1</td><td>$10,000</td></tr>
+  </table>
+</div>
+
+<!-- NOTES -->
+<div class="note-box">
+  <strong>Notes:</strong> This is a cross-pipeline custom view combining active deals from Sales Pipeline, Salesforce - Default Pipeline, and BZ - B2B Pipeline. Close dates were updated on 2/26/2026 during a pipeline grooming session (13 of 26 deals pushed forward).
+</div>
+
+</div>
+
+<div class="footer">
+  MindStride &bull; MS Pipeline Report &bull; Generated Feb 26, 2026 &bull; Confidential
+</div>
+
+</div><!-- end #report -->
+
+<script>
+// Simple client-side passcode protection
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+const PASSCODE_HASH = '7e1a4cb69a078de46803047d2e24cba2acdd3db1e13e498e32a57c0f29555213';
+
+async function checkPasscode() {
+  const input = document.getElementById('passcode-input').value;
+  const hash = await sha256(input);
+
+  if (hash === PASSCODE_HASH) {
+    document.getElementById('lock-screen').classList.add('hidden');
+    document.getElementById('report').classList.add('visible');
+    sessionStorage.setItem('ms-pipeline-auth', 'true');
+  } else {
+    document.getElementById('passcode-input').classList.add('error');
+    document.getElementById('lock-error').textContent = 'Incorrect passcode. Please try again.';
+    setTimeout(() => {
+      document.getElementById('passcode-input').classList.remove('error');
+    }, 500);
+  }
+}
+
+// Allow Enter key
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('passcode-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkPasscode();
+  });
+  // Check if already authenticated in this session
+  if (sessionStorage.getItem('ms-pipeline-auth') === 'true') {
+    document.getElementById('lock-screen').classList.add('hidden');
+    document.getElementById('report').classList.add('visible');
+  }
+});
+</script>
+</body>
+</html>
