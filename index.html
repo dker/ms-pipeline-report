@@ -78,12 +78,6 @@
   .change-down { color: var(--red); }
   .activity-metric .val-row { display: flex; align-items: baseline; gap: 4px; }
 
-  .owner-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
-  .owner-card { background: var(--bg); border-radius: 10px; padding: 18px 20px; border: 1px solid var(--border); text-align: center; }
-  .owner-card .owner-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
-  .owner-card .owner-deals { font-size: 12px; color: var(--body); }
-  .owner-card .owner-value { font-size: 24px; font-weight: 700; color: var(--blue); margin-top: 6px; }
-
   .note-box { background: var(--ice); border-left: 4px solid var(--blue); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-top: 16px; font-size: 13px; color: var(--body); }
   .note-box strong { color: var(--navy); }
 
@@ -92,7 +86,6 @@
   @media (max-width: 768px) {
     .kpi-row { grid-template-columns: 1fr; }
     .activity-grid { grid-template-columns: 1fr; }
-    .owner-split { grid-template-columns: 1fr; }
     .header-row { flex-direction: column; gap: 8px; }
   }
 </style>
@@ -143,23 +136,6 @@
     <div class="kpi-value">CA$413.6K</div>
     <div class="kpi-label">Next 90 Days</div>
     <div class="kpi-sub">15 deals closing Mar&ndash;May</div>
-  </div>
-</div>
-
-<!-- OWNER SPLIT -->
-<div class="section">
-  <h2>Owner Split</h2>
-  <div class="owner-split">
-    <div class="owner-card">
-      <div class="owner-name">Patrick Horne</div>
-      <div class="owner-deals">16 deals</div>
-      <div class="owner-value">CA$992.2K</div>
-    </div>
-    <div class="owner-card">
-      <div class="owner-name">Barb Streiftau</div>
-      <div class="owner-deals">10 deals</div>
-      <div class="owner-value">CA$251.3K</div>
-    </div>
   </div>
 </div>
 
