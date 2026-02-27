@@ -64,9 +64,6 @@
   td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
   tr:nth-child(even) td { background: var(--ice); }
   tr:hover td { background: #dbeafe; }
-  .text-right { text-align: right; }
-  .stage-active { color: var(--green); font-weight: 600; }
-  .stage-onboarding { color: var(--amber); font-weight: 600; }
 
   /* === ACTIVITY SECTION === */
   .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
@@ -132,6 +129,11 @@
 
 <!-- KPIs -->
 <div class="kpi-row">
+  <div class="kpi kpi-highlight">
+    <div class="kpi-value">CA$307.9K</div>
+    <div class="kpi-label">Existing Clients (ARR)</div>
+    <div class="kpi-sub">15 clients &bull; Avg CA$20.5K</div>
+  </div>
   <div class="kpi">
     <div class="kpi-value">CA$1.25M</div>
     <div class="kpi-label">Total Pipeline</div>
@@ -142,35 +144,6 @@
     <div class="kpi-label">Next 90 Days</div>
     <div class="kpi-sub">15 deals closing Mar&ndash;May</div>
   </div>
-  <div class="kpi kpi-highlight">
-    <div class="kpi-value">CA$307.9K</div>
-    <div class="kpi-label">Existing Clients (ARR)</div>
-    <div class="kpi-sub">15 clients &bull; Avg CA$20.5K</div>
-  </div>
-</div>
-
-<!-- EXISTING CLIENTS (ARR) -->
-<div class="section">
-  <h2>Existing Clients &mdash; Annual Recurring Revenue</h2>
-  <table>
-    <tr><th>Client</th><th>Stage</th><th class="text-right">Amount (CAD)</th><th>Next Step</th></tr>
-    <tr><td>GSAED</td><td class="stage-onboarding">Onboarding</td><td class="text-right">$180,000</td><td>Landed for $180K. Need to drive more registrations.</td></tr>
-    <tr><td>MDS Aerospace</td><td class="stage-active">Active Member</td><td class="text-right">$49,100</td><td>Renewal secured.</td></tr>
-    <tr><td>Rideau Transit Maintenance</td><td class="stage-active">Active Member</td><td class="text-right">$27,500</td><td>&mdash;</td></tr>
-    <tr><td>Food Cycler</td><td class="stage-active">Active Member</td><td class="text-right">$12,130</td><td>&mdash;</td></tr>
-    <tr><td>Westview Projects</td><td class="stage-active">Active Member</td><td class="text-right">$11,740</td><td>Renewal secured.</td></tr>
-    <tr><td>Stoneworks Technologies</td><td class="stage-active">Active Member</td><td class="text-right">$6,840</td><td>&mdash;</td></tr>
-    <tr><td>Recollective (LAND)</td><td class="stage-active">Active Member</td><td class="text-right">$5,960</td><td>&mdash;</td></tr>
-    <tr><td>Knak</td><td class="stage-active">Active Member</td><td class="text-right">$5,400</td><td>Need to try and save, ask Rudi.</td></tr>
-    <tr><td>H&amp;N Hospitality LTD</td><td class="stage-active">Active Member</td><td class="text-right">$3,000</td><td>Will reach out to Hussein to determine next steps.</td></tr>
-    <tr><td>Number Crunch</td><td class="stage-onboarding">Onboarding</td><td class="text-right">$2,886</td><td>Send Derrick the MSA today.</td></tr>
-    <tr><td>Central Precast</td><td class="stage-onboarding">Onboarding</td><td class="text-right">$2,640</td><td>Answering final questions with Charlene.</td></tr>
-    <tr><td>Recollective (Expand)</td><td class="stage-active">Active Member</td><td class="text-right">$2,301</td><td>Secured the expand. Kicking off full cohort and EAP.</td></tr>
-    <tr><td>Patry Group</td><td class="stage-onboarding">Onboarding</td><td class="text-right">$1</td><td>Determine onboarding approach. No word back from Kels.</td></tr>
-    <tr><td>BGC Ottawa</td><td class="stage-active">Active Member</td><td class="text-right">$0</td><td>&mdash;</td></tr>
-    <tr><td>Beckta Dining</td><td class="stage-active">Active Member</td><td class="text-right">$0</td><td>&mdash;</td></tr>
-    <tr style="font-weight:700; background: var(--ice);"><td>Total (15 Clients)</td><td></td><td class="text-right">$307,498</td><td></td></tr>
-  </table>
 </div>
 
 <!-- OWNER SPLIT -->
