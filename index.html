@@ -69,13 +69,11 @@
   .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
   .activity-card { background: var(--bg); border-radius: 10px; padding: 18px 20px; border: 1px solid var(--border); }
   .activity-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .activity-card .card-note { font-size: 10px; color: var(--body); font-style: italic; margin-top: 8px; }
   .activity-metric { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
   .activity-metric:last-child { border-bottom: none; }
   .activity-metric .label { font-size: 12px; color: var(--body); }
   .activity-metric .value { font-size: 18px; font-weight: 700; color: var(--heading); }
-  .activity-metric .change { font-size: 11px; font-weight: 600; margin-left: 6px; }
-  .change-up { color: var(--green); }
-  .change-down { color: var(--red); }
   .activity-metric .val-row { display: flex; align-items: baseline; gap: 4px; }
 
   .note-box { background: var(--ice); border-left: 4px solid var(--blue); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-top: 16px; font-size: 13px; color: var(--body); }
@@ -112,7 +110,7 @@
   <div class="header-row">
     <div>
       <h1>MS Pipeline — Summary</h1>
-      <div class="subtitle">February 27, 2026 &bull; 26 Active Deals &bull; Source: HubSpot CRM</div>
+      <div class="subtitle">March 13, 2026 &bull; 26 Active Deals &bull; Source: HubSpot CRM</div>
     </div>
     <div class="brand">mind<span>stride</span></div>
   </div>
@@ -123,19 +121,19 @@
 <!-- KPIs -->
 <div class="kpi-row">
   <div class="kpi kpi-highlight">
-    <div class="kpi-value">CA$307.9K</div>
+    <div class="kpi-value">CA$309.5K</div>
     <div class="kpi-label">Existing Clients (ARR)</div>
-    <div class="kpi-sub">15 clients &bull; Avg CA$20.5K</div>
+    <div class="kpi-sub">15 clients &bull; Avg CA$20.6K</div>
   </div>
   <div class="kpi">
-    <div class="kpi-value">CA$1.25M</div>
+    <div class="kpi-value">CA$1.24M</div>
     <div class="kpi-label">Total Pipeline</div>
-    <div class="kpi-sub">26 deals &bull; Avg CA$48.2K</div>
+    <div class="kpi-sub">26 deals &bull; Avg CA$47.8K</div>
   </div>
   <div class="kpi">
-    <div class="kpi-value">CA$413.6K</div>
+    <div class="kpi-value">CA$463.6K</div>
     <div class="kpi-label">Next 90 Days</div>
-    <div class="kpi-sub">15 deals closing Mar&ndash;May</div>
+    <div class="kpi-sub">16 deals closing Mar&ndash;Jun</div>
   </div>
 </div>
 
@@ -149,20 +147,21 @@
       <h4>Year to Date</h4>
       <div class="activity-metric">
         <span class="label">Emails Sent</span>
-        <div class="val-row"><span class="value">3,046</span><span class="change change-up">&#9650; 13,745%</span></div>
+        <div class="val-row"><span class="value">5,457</span></div>
       </div>
       <div class="activity-metric">
         <span class="label">Calls</span>
-        <div class="val-row"><span class="value">292</span></div>
+        <div class="val-row"><span class="value">345</span></div>
       </div>
       <div class="activity-metric">
         <span class="label">Meetings</span>
-        <div class="val-row"><span class="value">50</span></div>
+        <div class="val-row"><span class="value">181</span></div>
       </div>
       <div class="activity-metric">
         <span class="label">Notes</span>
-        <div class="val-row"><span class="value">261</span><span class="change change-up">&#9650; 8.8%</span></div>
+        <div class="val-row"><span class="value">545</span></div>
       </div>
+      <div class="card-note">Source: HubSpot API</div>
     </div>
 
     <!-- Month to Date -->
@@ -170,11 +169,11 @@
       <h4>Month to Date</h4>
       <div class="activity-metric">
         <span class="label">Emails Sent</span>
-        <div class="val-row"><span class="value">1,875</span><span class="change change-up">&#9650; 60.1%</span></div>
+        <div class="val-row"><span class="value">1,875</span></div>
       </div>
       <div class="activity-metric">
         <span class="label">Calls</span>
-        <div class="val-row"><span class="value">155</span><span class="change change-up">&#9650; 13.1%</span></div>
+        <div class="val-row"><span class="value">155</span></div>
       </div>
       <div class="activity-metric">
         <span class="label">Meetings</span>
@@ -182,8 +181,9 @@
       </div>
       <div class="activity-metric">
         <span class="label">LinkedIn Msgs</span>
-        <div class="val-row"><span class="value">86</span><span class="change change-down">&#9660; 6.5%</span></div>
+        <div class="val-row"><span class="value">86</span></div>
       </div>
+      <div class="card-note">As of Feb 27 &mdash; needs HubSpot Reports refresh</div>
     </div>
 
     <!-- Week to Date -->
@@ -191,7 +191,7 @@
       <h4>Week to Date</h4>
       <div class="activity-metric">
         <span class="label">Emails Sent</span>
-        <div class="val-row"><span class="value">249</span><span class="change change-down">&#9660; 75.4%</span></div>
+        <div class="val-row"><span class="value">249</span></div>
       </div>
       <div class="activity-metric">
         <span class="label">Calls</span>
@@ -203,8 +203,9 @@
       </div>
       <div class="activity-metric">
         <span class="label">Notes</span>
-        <div class="val-row"><span class="value">19</span><span class="change change-up">&#9650; 137.5%</span></div>
+        <div class="val-row"><span class="value">19</span></div>
       </div>
+      <div class="card-note">As of Feb 27 &mdash; needs HubSpot Reports refresh</div>
     </div>
 
   </div>
@@ -215,11 +216,11 @@
   <h2>Close Date Distribution</h2>
   <table>
     <tr><th>Period</th><th># Deals</th><th>Value</th><th>% of Pipeline</th></tr>
-    <tr><td>Mar 2026</td><td>5</td><td>$32,364</td><td>2.6%</td></tr>
-    <tr><td>Apr 2026</td><td>9</td><td>$389,544</td><td>31.3%</td></tr>
+    <tr><td>Mar 2026</td><td>5</td><td>$29,364</td><td>2.4%</td></tr>
+    <tr><td>Apr 2026</td><td>10</td><td>$384,200</td><td>30.9%</td></tr>
     <tr><td>May 2026</td><td>1</td><td>$50,000</td><td>4.0%</td></tr>
-    <tr><td>Jun 2026</td><td>5</td><td>$410,000</td><td>33.0%</td></tr>
-    <tr><td>Jul 2026</td><td>2</td><td>$205,000</td><td>16.5%</td></tr>
+    <tr><td>Jun 2026</td><td>3</td><td>$310,000</td><td>24.9%</td></tr>
+    <tr><td>Jul 2026</td><td>4</td><td>$305,000</td><td>24.5%</td></tr>
     <tr><td>Aug 2026</td><td>2</td><td>$155,000</td><td>12.5%</td></tr>
     <tr><td>Oct 2026</td><td>1</td><td>$10,000</td><td>0.8%</td></tr>
     <tr style="font-weight:700;"><td>Total</td><td>26</td><td>$1,243,564</td><td>100%</td></tr>
@@ -228,13 +229,13 @@
 
 <!-- NOTES -->
 <div class="note-box">
-  <strong>Notes:</strong> Cross-pipeline custom view combining active deals from Sales Pipeline, Salesforce Default Pipeline, and BZ - B2B Pipeline. Close dates updated 2/26/2026 during pipeline grooming (13 of 26 deals pushed forward). Existing Clients (ARR) sourced from HubSpot "Existing Clients" view (15 records, avg deal age 44 days).
+  <strong>Notes:</strong> Cross-pipeline custom view combining active deals from Sales Pipeline, Salesforce Default Pipeline, and BZ - B2B Pipeline. KPIs and Close Date Distribution refreshed via HubSpot API on 3/13/2026. B2B Activity YTD pulled from HubSpot API; MTD and WTD figures are from Feb 27 and need manual refresh from HubSpot Reports. Existing Clients (ARR) sourced from HubSpot &ldquo;Existing Clients&rdquo; view (15 records).
 </div>
 
 </div>
 
 <div class="footer">
-  MindStride &bull; MS Pipeline Summary &bull; Updated Feb 27, 2026 &bull; Confidential
+  MindStride &bull; MS Pipeline Summary &bull; Updated Mar 13, 2026 &bull; Confidential
 </div>
 
 </div><!-- end #report -->
